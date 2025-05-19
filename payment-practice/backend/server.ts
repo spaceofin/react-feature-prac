@@ -1,10 +1,20 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+
 dotenv.config();
 
 import stripe from "./stripe";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_ORIGIN,
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("hello, express");
