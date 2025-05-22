@@ -1,21 +1,29 @@
-import { createOrder } from "../services/paypalServices";
+import { createOrder, onApprove } from "../services/paypalServices";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
+const initialOptions = {
+  clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+  enableFunding: "venmo",
+  buyerCountry: "US",
+  currency: "USD",
+  components: "buttons",
+};
 
 export default function Paypal() {
-  const handleCreateOrder = async () => {
-    try {
-      const result = await createOrder();
-      console.log("Order created:", result);
-    } catch (error) {
-      console.error("Failed to create order:", error);
-    }
-  };
   return (
     <div className="p-10">
-      <button
-        className="border hover:cursor-pointer px-4 py-2 rounded-md text-xl bg-blue-300/50 "
-        onClick={handleCreateOrder}>
-        Create Order
-      </button>
+      <PayPalScriptProvider options={initialOptions}>
+        <PayPalButtons
+          style={{
+            shape: "rect",
+            layout: "vertical",
+            color: "gold",
+            label: "paypal",
+          }}
+          createOrder={createOrder}
+          onApprove={onApprove}
+        />
+      </PayPalScriptProvider>
     </div>
   );
 }
