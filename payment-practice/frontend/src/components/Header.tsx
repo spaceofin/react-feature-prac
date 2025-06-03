@@ -7,6 +7,7 @@ export default function Header() {
         <Link to="/">Home</Link>
         <Link to="/stripe">Stripe</Link>
         <Link to="/paypal">PayPal</Link>
+        <Link to="/kakaopay">Kakaopay</Link>
       </nav>
     </header>
   );
