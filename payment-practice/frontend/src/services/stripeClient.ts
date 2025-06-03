@@ -6,7 +6,7 @@ export const stripePromise = loadStripe(
 
 export const fetchClientSecret = () => {
   return fetch(
-    `${import.meta.env.VITE_SERVER_BASE_URL}/create-checkout-session`,
+    `${import.meta.env.VITE_STRIPE_SERVER_BASE_URL}/create-checkout-session`,
     {
       method: "POST",
     }
