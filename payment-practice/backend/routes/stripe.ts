@@ -23,8 +23,6 @@ router.post("/create-checkout-session", async (req: Request, res: Response) => {
       return_url: "https://example.com/return?session_id={CHECKOUT_SESSION_ID}",
     });
 
-    console.log("++++++Checkout session created:", session.id);
-
     res.json({ checkoutSessionClientSecret: session.client_secret });
   } catch (error) {
     console.log("Error creating checkout session:", error);
