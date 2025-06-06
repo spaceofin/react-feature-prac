@@ -1,13 +1,22 @@
-import { useState } from "react";
 import { createSingleOrder } from "../services/kakaopayServices";
 
+const isBrowser =
+  !/iPhone|iPad|iPod|Android|BlackBerry|Windows Phone|webOS|Opera Mini|IEMobile|Mobile/i.test(
+    navigator.userAgent
+  );
+
 export default function Kakaopay() {
-  const [response, setResponse] = useState<Record<string, any> | null>(null);
+  // console.log(navigator.userAgent);
 
   const handleSingleOrderClick = async () => {
     try {
       const response = await createSingleOrder();
-      setResponse(response);
+      console.log(response);
+
+      if (isBrowser) {
+        const redirectUrl = response.next_redirect_pc_url;
+        window.location.href = redirectUrl;
+      }
     } catch (error) {
       console.error("Error creating KakaoPay single order:", error);
     }
@@ -21,7 +30,6 @@ export default function Kakaopay() {
         <span>kakao</span>
         <span className="font-bold">pay</span>
       </button>
-      <div>{response && JSON.stringify(response)}</div>
     </div>
   );
 }
