@@ -9,9 +9,9 @@ export const createSinglePayment = async (order: any) => {
   const partner_order_id = "order1234";
 
   const cid = "TC0ONETIME";
-  const approval_url = "http://localhost:5173/success";
-  const cancel_url = "http://localhost:5173/cancel";
-  const fail_url = "http://localhost:5173/fail";
+  const approval_url = process.env.KAKAOPAY_APPROVAL_URL;
+  const cancel_url = process.env.KAKAOPAY_CANCEL_URL;
+  const fail_url = process.env.KAKAOPAY_FAIL_URL;
 
   const response = await fetch(
     `${process.env.KAKAOPAY_BASE_URL}/online/v1/payment/ready`,
